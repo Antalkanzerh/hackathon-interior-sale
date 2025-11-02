@@ -1,0 +1,52 @@
+{% extends 'core/base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-md mt-10">
+    <h1 class="text-3xl font-semibold mb-6 text-center text-gray-800">Создать аккаунт</h1>
+
+    <form method="post" action=".">
+        {% csrf_token %}
+
+        <div class="mb-5">
+            <label class="block mb-2 font-medium text-gray-700">Имя пользователя</label>
+            {% render_field form.username class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400" placeholder="Ваш логин" %}
+        </div>
+
+        <div class="mb-5">
+            <label class="block mb-2 font-medium text-gray-700">Email</label>
+            {% render_field form.email class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400" placeholder="Ваш email" %}
+        </div>
+
+        <div class="mb-5">
+            <label class="block mb-2 font-medium text-gray-700">Пароль</label>
+            {% render_field form.password1 class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400" placeholder="Введите пароль" %}
+        </div>
+
+        <div class="mb-5">
+            <label class="block mb-2 font-medium text-gray-700">Повторите пароль</label>
+            {% render_field form.password2 class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400" placeholder="Повторите пароль" %}
+        </div>
+
+        {% if form.errors or form.non_field_errors %}
+        <div class="mb-5 p-4 bg-red-100 rounded-lg text-red-700">
+            {% for field in form %}
+                {{ field.errors }}
+            {% endfor %}
+            {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+
+        <button class="w-full py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition">
+            Зарегистрироваться
+        </button>
+    </form>
+
+    <p class="text-center text-gray-600 mt-6">
+        Уже есть аккаунт?
+        <a href="{% url 'core:login' %}" class="text-orange-500 hover:underline">Войти</a>
+    </p>
+</div>
+{% endblock %}
