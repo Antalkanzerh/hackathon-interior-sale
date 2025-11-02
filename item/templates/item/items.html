@@ -1,4 +1,5 @@
 {% extends 'core/base.html' %}
+{% load static %}
 
 {% block title %}Items{% endblock %}
 
@@ -28,7 +29,8 @@
             <p class="font-semibold">Clear filters</p>
 
             <ul>
-                <li><a href="{% url 'item:items' %}" class="mt-2 py-4 px-8 inline-block bg-yellow-500 text-lg rounded-xl text-white">Clear</a>
+                <li><a href="{% url 'item:items' %}" class="mt-2 py-4 px-8 inline-block bg-yellow-500 text-lg rounded-xl text-white">Clear</a></li>
+            </ul>
         </div>
 
         <div class="col-span-3">
@@ -37,12 +39,16 @@
                     <div>
                         <a href="{% url 'item:detail' item.id %}">
                             <div>
-                                <img src="{{ item.image.url }}" class="rounded-t-xl">
+                                {% if item.image %}
+                                    <img src="{{ item.image.url }}" class="rounded-t-xl">
+                                {% else %}
+                                    <img src="{% static 'cozyyu/images/item-placeholder.svg' %}" class="rounded-t-xl">
+                                {% endif %}
                             </div>
-    
+
                             <div class="p-6 bg-white rounded-b-xl">
                                 <h2 class="text-2xl">{{ item.name }}</h2>
-                                <p class="text-gray-500">Price: {{ item.price }}</p>
+                                <p class="text-gray-500">Price: {{ item.price_tg }} ₸</p>
                             </div>
                         </a>
                     </div>
